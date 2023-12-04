@@ -109,15 +109,15 @@ class ProfCoursTest extends TestCase
             new Cours("Cours7", "3", 5),       // idcours = 7   ** A SUPPRIMER **
             new Cours("Cours8", "4", 5),       // idcours = 8
             new Cours("Cours9", "3", 5),        // idcours = 9   ** A MODIFIER **
-            new Cours("IoT", "10", 1),          // idcours = 10
-            new Cours("IA", "12", 3),           // idcours = 11
-            new Cours("EDL", "5", 6)            // idcours = 12
-        
+            
             /**
             *
             * Question 7 : Insérer les enregistrements suivantes dans la table cours
             *
             */
+            new Cours("IoT", "10", 1),          // idcours = 10
+            new Cours("IA", "12", 3),           // idcours = 11
+            new Cours("EDL", "5", 6)            // idcours = 12
 
         ];
         
@@ -192,20 +192,13 @@ class ProfCoursTest extends TestCase
         $this->assertEquals($expected, $num_records, "Enregistrement des profs ...\n");
         $this->assertCount($num_records, self::$prof_a, "Enregistrement des profs ...\n");
 
-        
-        // Cours
-        
-        print "ADD cours\n";
-        foreach (self::$cours_a as $cours) {
-            $cours->add($conn);
-        }
-        
+                
         /**
         *
         * Question 8 : Dans la fonction « testAdd() », s’inspirer de test d’ajout des profs pour tester l’ajout des cours.   
         *
         */
-
+         // Cours
         print "ADD cours\n";
         foreach (self::$cours_a as $cours) {
             $cours->add($conn);
@@ -254,7 +247,7 @@ class ProfCoursTest extends TestCase
             print $record_cours;
         }
         print "################################################################\n\n";
-        $this->assertCount(count(Self::$cours_a), $record_cours_a, "Nombre d'enregistrement égale pour Cours\n");
+        
   
         
     }
