@@ -25,6 +25,7 @@ class ProfCoursTest extends TestCase
     private $date ="22/07/1984"; // a changer
     private $lieu ="Toulouse, France"; // a changer
 
+
     // cours
     private $intitule="Intégratoin continue"; //a remplir
     private $duree="3h";    //a remplir
@@ -60,6 +61,14 @@ class ProfCoursTest extends TestCase
                 die('Erreur : ' . $e->getMessage());
             }
         }
+        
+        /**
+         * Nom Prénom Date de naissance Lieu de naissance
+         * Nom_Prof1 Prenom_Prof1 10/01/1982 lieu_prof1
+         * Nom_Prof2 Prenom_Prof2 10/02/1982 lieu_prof2
+         * Nom_Prof3 Prenom_Prof3 10/03/1982 lieu_prof3
+         * 
+         */
 
         print "Création des variables. \n";
         self::$prof_a = [
@@ -81,7 +90,14 @@ class ProfCoursTest extends TestCase
             new Prof("Nom_prof8", "Prenom_prof8", "10/08/1982", "lieu_prof8"),      // idprof = 8       ** A SUPPRIMER **
             new Prof("Nom_prof9", "Prenom_prof9", "10/09/1982", "lieu_prof9"),      // idprof = 9
             new Prof("Nom_prof10", "Prenom_prof10", "10/10/1982", "lieu_prof10")    // idprof = 10      ** A MODIFIER **
+
         ];
+
+        /**
+         * IoT 10 1
+         * IA 12 3
+         * EDL 5 6
+         */
 
         self::$cours_a = [
             new Cours("Cours1", "2", 1),       // idcours = 1
@@ -93,7 +109,10 @@ class ProfCoursTest extends TestCase
             new Cours("Cours7", "3", 5),       // idcours = 7   ** A SUPPRIMER **
             new Cours("Cours8", "4", 5),       // idcours = 8
             new Cours("Cours9", "3", 5),        // idcours = 9   ** A MODIFIER **
-            
+            new Cours("IoT", "10", 1),          // idcours = 10
+            new Cours("IA", "12", 3),           // idcours = 11
+            new Cours("EDL", "5", 6)            // idcours = 12
+        
             /**
             *
             * Question 7 : Insérer les enregistrements suivantes dans la table cours
@@ -186,6 +205,17 @@ class ProfCoursTest extends TestCase
         * Question 8 : Dans la fonction « testAdd() », s’inspirer de test d’ajout des profs pour tester l’ajout des cours.   
         *
         */
+
+        print "ADD cours\n";
+        foreach (self::$cours_a as $cours) {
+            $cours->add($conn);
+        }
+        $expected = count(self::$cours_a);
+        $num_records = Cours::count($conn);
+        $this->assertEquals($expected, $num_records, "Enregistrement des cours ...\n");
+        $this->assertCount($num_records, self::$cours_a, "Enregistrement des cours ...\n");
+        
+
         
     }
     
@@ -218,6 +248,13 @@ class ProfCoursTest extends TestCase
         * s’inspirer de test de la sélection et affichage des profs pour tester la sélection et l’affichage des cours.   
         *
         */
+        $record_cours_a = Cours::printAll($conn);
+        print "@@@@@@@@@@@@@ - LISTE DES COURS - AVANT TOUT @@@@@@@@@@@@@ \n";
+        foreach ( $record_cours_a as $record_cours ) {
+            print $record_cours;
+        }
+        print "################################################################\n\n";
+        $this->assertCount(count(Self::$cours_a), $record_cours_a, "Nombre d'enregistrement égale pour Cours\n");
   
         
     }
